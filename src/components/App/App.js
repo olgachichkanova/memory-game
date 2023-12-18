@@ -1,6 +1,7 @@
 import React from 'react';
 import { Steps } from '../Steps/Steps.js';
 import { Board } from '../Board/Board.js'
+import './App.css';
 
 export const App = () => {
     return (

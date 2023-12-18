@@ -1,0 +1,15 @@
+@import url('https://fonts.cdnfonts.com/css/formular');
+
+:root {
+    --main-color: #0083FC;
+    --accent-color: #FF5533;
+    --secondary-color: #E6E6E6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Formular', sans-serif;
+    color: var(--main-color);
+    text-transform: uppercase;
+}

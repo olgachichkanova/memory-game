@@ -1,16 +1,33 @@
 const path= require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/components/script.js',
+    mode: process.env.NODE_ENV || 'production',
+    entry: './src/script.js',
     output: {
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.[contenthash].js'
     },
     module: {
         rules: [
             {
                 test: /\.js$/,
                 use: 'babel-loader'
-            }
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+              }, {
+                test: /\.svg$/,
+                type: 'asset/resource'
+              }
         ]
-    }
+    },
+    plugins: [new HtmlWebpackPlugin({
+        template: './src/index.html'
+      })],
+      devServer: {
+        open: true,
+      }
+    
 }

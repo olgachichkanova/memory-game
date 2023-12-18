@@ -1,4 +1,6 @@
 import React from 'react';
+import './Steps.css';
+
 export const Steps = ({title, count}) => {
     return (
         <div className="steps">
