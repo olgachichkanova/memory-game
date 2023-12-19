@@ -2,13 +2,12 @@ import React from 'react';
 import './Card.css';
 import cardImg from '../../images/card.svg';
 
-export const Card = ({image}) => {
-    const [isOpen, setIsOpen] = React.useState(false)
+export const Card = ({image, isOpen}) => {
     return (
-        <div className="card" onClick={() => setIsOpen(!isOpen)}>
+        <React.Fragment>
             {isOpen 
             ? <img src={image}/>
             : <img src={cardImg}/>}
-        </div>
+        </React.Fragment>
     )
 }
