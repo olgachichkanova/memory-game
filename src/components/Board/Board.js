@@ -11,7 +11,7 @@ import webpackImg from '../../images/webpack.svg';
 import tsImg from '../../images/ts.svg';
 
 
-export const Board = () => {
+export const Board = ({onCardClick}) => {
   const placeholder = [
       {
           id: 'card1',
@@ -114,6 +114,7 @@ export const Board = () => {
   const [openCards, setOpenCards] = React.useState([]);
 
   const handleCardClick = (id) => {
+    onCardClick();
     setCards((prevCards) =>
       prevCards.map((card) =>
         card.id === id ? { ...card, isOpen: !card.isOpen } : card
