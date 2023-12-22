@@ -66,7 +66,10 @@ export const Board = ({ onCardClick, setIsWinner, isWinner, isReset, onReset }) 
   }, [cards]);
   
   const handleCardClick = (id) => {
-    onCardClick();
+    const card  = cards.find(i => i.id === id)
+    if(card.img) {
+      onCardClick();
+    }
     updateCards(id);
     updateOpenCards(id);
   };
@@ -99,7 +102,7 @@ export const Board = ({ onCardClick, setIsWinner, isWinner, isReset, onReset }) 
             key={card.id}
             onClick={() => handleCardClick(card.id)}
           >
-            {card.img && <Card image={card.img} isOpen={card.isOpen} />}
+            {card.img ? <Card image={card.img} isOpen={card.isOpen} /> : <div className='no-card'></div>}
           </div>
         ))}
       </div>
