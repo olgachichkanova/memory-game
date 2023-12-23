@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import './Card.css';
 import cardImg from '../../images/card.svg';
+import { CardModel } from '../../utils';
 
-export const Card = ({image, isOpen}) => {
+interface Props {
+    image: string;
+    isOpen: boolean;
+}
+
+export const Card: FC<Props> = ({image, isOpen}) => {
     return (
         <React.Fragment>
             {isOpen 

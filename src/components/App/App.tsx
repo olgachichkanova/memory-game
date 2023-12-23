@@ -1,6 +1,6 @@
 import React from 'react';
-import { Steps } from '../Steps/Steps.js';
-import { Board } from '../Board/Board.js'
+import { Steps } from '../Steps/Steps';
+import { Board } from '../Board/Board'
 import './App.css';
 
 export const App = () => {
@@ -13,10 +13,10 @@ export const App = () => {
     const handleCardClick = () => {
         setCounter((prevCounter) => prevCounter + 1);
     };
-    const handleResult = (value) => {
+    const handleResult = (value: boolean) => {
         setIsWinner(value)
     }
-    const handleReset = (value) => {
+    const handleReset = (value: boolean) => {
         setIsResetGame(value);
         setCounter(0);
         setIsGameFinished(false);

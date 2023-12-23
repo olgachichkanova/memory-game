@@ -7,7 +7,7 @@ import jsImg from '../src/images/js.svg';
 import webpackImg from '../src/images/webpack.svg';
 import tsImg from '../src/images/ts.svg';
 
-export const setOfCards = [
+export const setOfCards: CardModel[] = [
     {
         id: 'card1',
         img: twoImg,
@@ -105,16 +105,14 @@ export const setOfCards = [
         isOpen: false
     }
 ];
-
-// const shuffleArray = (array) => {
-//     for (let i = array.length - 1; i > 0; i--) {
-//         const j = Math.floor(Math.random() * (i + 1));
-//         [array[i], array[j]] = [array[j], array[i]];
-//     }
-//     return array;
-// };
-export const shuffleCards = (items) => {
-    const shuffledCards = [...items];
+export interface CardModel {
+    id: string;
+    img: string | null;
+    name: string;
+    isOpen: boolean;
+}
+export const shuffleCards = (items: CardModel[]): CardModel[] => {
+    const shuffledCards: CardModel[]  = [...items];
     for (let i = shuffledCards.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]];
