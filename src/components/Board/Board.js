@@ -4,10 +4,28 @@ import './Board.css';
 import { setOfCards, shuffleCards } from '../../utils.js';
 
 const MATCH_ANIMATION_DURATION = 500;
+const OPEN_CARDS_DURATION = 1500;
 
 export const Board = ({ onCardClick, setIsWinner, isWinner, isReset, onReset }) => {
   const [cards, setCards] = React.useState(shuffleCards(setOfCards));
   const [openCards, setOpenCards] = React.useState([]);
+
+  const handleCheckCards = () => {
+    if (cards.every((card) => card.img === null) && !isWinner) {
+      setIsWinner(true);
+    }
+  };
+  
+  const handleCardClick = (id) => {
+    const card  = getCard(id);
+    if(card.img) {
+      onCardClick();
+    }
+    updateCards(id);
+    updateOpenCards(id);
+  };
+
+  const getCard = (id) => cards.find((card) => card.id === id);
 
   const updateCards = (id) => {
     setCards((prevCards) =>
@@ -18,26 +36,37 @@ export const Board = ({ onCardClick, setIsWinner, isWinner, isReset, onReset }) 
   };
 
   const updateOpenCards = (id) => {
-    const clickedCard = cards.find((card) => card.id === id);
+    const clickedCard = getCard(id);
     setOpenCards((prevOpenCards) =>
       prevOpenCards.some((card) => card.id === clickedCard.id)
         ? prevOpenCards
         : [...prevOpenCards, clickedCard]
     );
   };
+  let timeoutId;
 
   const closeUnmatchedCards = (lastClickedCardId) => {
-    setCards((prevCards) =>
-      prevCards.map((card) =>
-        openCards.some((openCard) => openCard.id === card.id) &&
-        card.id !== lastClickedCardId
-          ? { ...card, isOpen: false }
-          : card
-      )
-    );
-    setOpenCards((prevOpenCards) => [prevOpenCards[prevOpenCards.length - 1]]);
+    if (openCards.length === 2) {
+      timeoutId = setTimeout(() => {
+        closeCards(openCards);
+        setOpenCards([]);
+      }, OPEN_CARDS_DURATION);
+    } else if (openCards.length === 3) {
+      clearTimeout(timeoutId);
+      closeCards(openCards.filter((card) => card.id !== lastClickedCardId));
+      setOpenCards((prevOpenCards) => [prevOpenCards[prevOpenCards.length - 1]]);
+    }
   };
 
+  const closeCards = (idsArr) => {
+    setCards((prevCards) =>
+      prevCards.map((card) =>
+        idsArr.some((item) => item.id === card.id)
+          ? { ...card, isOpen: false }
+          : card
+      ))
+  }
+  
   const removeMatchedCards = () => {
     setTimeout(() => {
       setCards((prevCards) =>
@@ -50,12 +79,6 @@ export const Board = ({ onCardClick, setIsWinner, isWinner, isReset, onReset }) 
     }, MATCH_ANIMATION_DURATION);
   };
 
-  const handleCheckCards = () => {
-    if (cards.every((card) => card.img === null) && !isWinner) {
-      setIsWinner(true);
-    }
-  };
-
   const resetGame = () => {
     setOpenCards([]);
     setCards(shuffleCards(setOfCards));
@@ -65,32 +88,23 @@ export const Board = ({ onCardClick, setIsWinner, isWinner, isReset, onReset }) 
     handleCheckCards();
   }, [cards]);
   
-  const handleCardClick = (id) => {
-    const card  = cards.find(i => i.id === id)
-    if(card.img) {
-      onCardClick();
-    }
-    updateCards(id);
-    updateOpenCards(id);
-  };
-  
   React.useEffect(() => {
     if (isReset) {
       onReset(false);
       resetGame();
     }
   
-    if (openCards.length > 2) {
+    if (openCards.length > 1) {
       const lastClickedCardId = openCards[openCards.length - 1].id;
       closeUnmatchedCards(lastClickedCardId);
     }
-  
+
     if (openCards.length === 2 && openCards[0].name === openCards[1].name) {
       removeMatchedCards();
       setOpenCards([]);
     }
-  }, [openCards, isReset, isWinner]);
-  
+    return () => clearTimeout(timeoutId);
+  }, [openCards, isReset, isWinner]);  
 
   return (
     <div className="cards-wrapper">
