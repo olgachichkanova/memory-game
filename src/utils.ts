@@ -1,5 +1,5 @@
 import twoImg from '../src/images/2.svg';
-import threeImg from '../src/images/3.svg';
+import reduxImg from '../src/images/redux.svg';
 import nginxImg from '../src/images/nginx.svg';
 import reactImg from '../src/images/react.svg';
 import wsImg from '../src/images/ws.svg';
@@ -22,14 +22,14 @@ export const setOfCards: CardModel[] = [
     },
     {
         id: 'card3',
-        img: threeImg,
-        name: 'threeImg',
+        img: reduxImg,
+        name: 'reduxImg',
         isOpen: false
     },
     {
         id: 'card4',
-        img: threeImg,
-        name: 'threeImg',
+        img: reduxImg,
+        name: 'reduxImg',
         isOpen: false
     },
     {

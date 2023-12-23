@@ -1,6 +1,7 @@
 import React from 'react';
 import { Steps } from '../Steps/Steps';
-import { Board } from '../Board/Board'
+import { Board } from '../Board/Board';
+import { Result } from '../Result/Result'
 import './App.css';
 
 export const App = () => {
@@ -31,25 +32,12 @@ export const App = () => {
     return (
         <section className='board'>
             <Steps 
-                title='Сделано ходов'
+                title='Steps made'
                 count={counter}/>
-            {(isGameFinished && !isWinner) && 
-            <div className='results-wrapper'>
-                <div className="results">
-                    <h2>Loooooooser!</h2>
-                    <button className='button' onClick={() => handleReset(true)}>Play again</button>
-                </div>
-            </div>}
-            {(isGameFinished && isWinner) && <div className='results-wrapper'>
-                <div className="results">
-                    <h2>Congratulations!</h2>
-                    <p>You won with ${counter} steps.</p>
-                    <button className='button' onClick={() => handleReset(true)}>Play again</button>
-                </div>
-            </div>}
+            {(isGameFinished) && <Result isWinner={isWinner} counter={counter} resetGame={() => handleReset(true)} />}
             <Board onCardClick={handleCardClick} isWinner={isWinner} setIsWinner={(value) => handleResult(value)} isReset={isResetGame} onReset={(value) => handleReset(value)}/>
             <Steps 
-                title='Осталось ходов'
+                title='Available steps'
                 count={totalSteps - counter}/>
         </section>
     )
