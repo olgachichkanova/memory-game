@@ -1,4 +1,4 @@
-import twoImg from '../src/images/2.svg';
+import firebaseImg from '../src/images/firebase.svg';
 import reduxImg from '../src/images/redux.svg';
 import nginxImg from '../src/images/nginx.svg';
 import reactImg from '../src/images/react.svg';
@@ -10,14 +10,14 @@ import tsImg from '../src/images/ts.svg';
 export const setOfCards: CardModel[] = [
     {
         id: 'card1',
-        img: twoImg,
-        name: 'twoImg',
+        img: firebaseImg,
+        name: 'firebaseImg',
         isOpen: false
     },
     {
         id: 'card2',
-        img: twoImg,
-        name: 'twoImg',
+        img: firebaseImg,
+        name: 'firebaseImg',
         isOpen: false
     },
     {
