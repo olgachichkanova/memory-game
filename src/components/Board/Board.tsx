@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Card } from '../Card/Card'
+import { Card } from '../Card/Card';
 import './Board.css';
 import { CardModel, setOfCards, shuffleCards } from '../../utils';
 
@@ -23,10 +23,10 @@ export const Board: FC<Props> = ({ onCardClick, setIsWinner, isWinner, isReset, 
       setIsWinner(true);
     }
   };
-  
+
   const handleCardClick = (id: string) => {
     const card: CardModel = getCard(id);
-    if(card.img) {
+    if (card.img) {
       onCardClick();
     }
     updateCards(id);
@@ -34,23 +34,19 @@ export const Board: FC<Props> = ({ onCardClick, setIsWinner, isWinner, isReset, 
   };
 
   const getCard = (id: string): CardModel => {
-    return cards.find((card) => card.id === id) ?? {id: '', name: '', img: null, isOpen: false}
+    return cards.find((card) => card.id === id) ?? { id: '', name: '', img: null, isOpen: false };
   };
 
   const updateCards = (id: string) => {
-    setCards((prevCards) =>
-      prevCards.map((card) =>
-        card.id === id ? { ...card, isOpen: !card.isOpen } : card
-      )
-    );
+    setCards((prevCards) => prevCards.map((card) => (card.id === id ? { ...card, isOpen: !card.isOpen } : card)));
   };
 
   const updateOpenCards = (id: string) => {
     const clickedCard: CardModel = getCard(id);
-    setOpenCards((prevOpenCards: any ) =>
+    setOpenCards((prevOpenCards: any) =>
       prevOpenCards.some((card: CardModel) => card.id === clickedCard.id)
         ? prevOpenCards
-        : [...prevOpenCards, clickedCard]
+        : [...prevOpenCards, clickedCard],
     );
   };
   let timeoutId: ReturnType<typeof setTimeout>;
@@ -70,21 +66,18 @@ export const Board: FC<Props> = ({ onCardClick, setIsWinner, isWinner, isReset, 
 
   const closeCards = (arr: CardModel[]) => {
     setCards((prevCards) =>
-      prevCards.map((card) =>
-        arr.some((item) => item.id === card.id)
-          ? { ...card, isOpen: false }
-          : card
-      ))
-  }
-  
+      prevCards.map((card) => (arr.some((item) => item.id === card.id) ? { ...card, isOpen: false } : card)),
+    );
+  };
+
   const removeMatchedCards = () => {
     setTimeout(() => {
       setCards((prevCards) =>
         prevCards.map((card) =>
           openCards.some((openCard: CardModel) => openCard.id === card.id)
             ? { ...card, img: null, isOpen: false }
-            : card
-        )
+            : card,
+        ),
       );
     }, MATCH_ANIMATION_DURATION);
   };
@@ -93,19 +86,19 @@ export const Board: FC<Props> = ({ onCardClick, setIsWinner, isWinner, isReset, 
     setOpenCards([]);
     setCards(shuffleCards(setOfCards));
   };
-  
+
   React.useEffect(() => {
     handleCheckCards();
   }, [cards]);
-  
+
   React.useEffect(() => {
     if (isReset) {
       onReset(false);
       resetGame();
     }
-  
+
     if (openCards.length > 1) {
-      const lastClickedCardId = ((openCards[openCards.length - 1] as CardModel).id);
+      const lastClickedCardId = (openCards[openCards.length - 1] as CardModel).id;
       closeUnmatchedCards(lastClickedCardId);
     }
 
@@ -114,7 +107,7 @@ export const Board: FC<Props> = ({ onCardClick, setIsWinner, isWinner, isReset, 
       setOpenCards([]);
     }
     return () => clearTimeout(timeoutId);
-  }, [openCards, isReset, isWinner]);  
+  }, [openCards, isReset, isWinner]);
 
   return (
     <div className="cards-wrapper">
@@ -126,7 +119,7 @@ export const Board: FC<Props> = ({ onCardClick, setIsWinner, isWinner, isReset, 
             key={card.id}
             onClick={() => handleCardClick(card.id)}
           >
-            {card.img ? <Card image={card.img} isOpen={card.isOpen} /> : <div className='no-card'></div>}
+            {card.img ? <Card image={card.img} isOpen={card.isOpen} /> : <div className="no-card"></div>}
           </div>
         ))}
       </div>
