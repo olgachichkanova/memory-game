@@ -25,29 +25,31 @@ export const Board: FC<Props> = ({ onCardClick, setIsWinner, isWinner, isReset, 
   };
 
   const handleCardClick = (id: string) => {
-    const card: CardModel = getCard(id);
-    if (card.img) {
+    const card = getCard(id);
+    if (card && card.img && !card.isOpen) {
       onCardClick();
     }
     updateCards(id);
     updateOpenCards(id);
   };
 
-  const getCard = (id: string): CardModel => {
-    return cards.find((card) => card.id === id) ?? { id: '', name: '', img: null, isOpen: false };
+  const getCard = (id: string): CardModel | null => {
+    return cards.find((card) => card.id === id) ?? null;
   };
 
   const updateCards = (id: string) => {
-    setCards((prevCards) => prevCards.map((card) => (card.id === id ? { ...card, isOpen: !card.isOpen } : card)));
+    setCards((prevCards) => prevCards.map((card) => (card.id === id ? { ...card, isOpen: true } : card)));
   };
 
   const updateOpenCards = (id: string) => {
-    const clickedCard: CardModel = getCard(id);
-    setOpenCards((prevOpenCards: any) =>
-      prevOpenCards.some((card: CardModel) => card.id === clickedCard.id)
-        ? prevOpenCards
-        : [...prevOpenCards, clickedCard],
-    );
+    const clickedCard = getCard(id);
+    if (clickedCard) {
+      setOpenCards((prevOpenCards: any) =>
+        prevOpenCards.some((card: CardModel) => card.id === clickedCard.id)
+          ? prevOpenCards
+          : [...prevOpenCards, clickedCard],
+      );
+    }
   };
   let timeoutId: ReturnType<typeof setTimeout>;
 
@@ -102,7 +104,7 @@ export const Board: FC<Props> = ({ onCardClick, setIsWinner, isWinner, isReset, 
       closeUnmatchedCards(lastClickedCardId);
     }
 
-    if (openCards.length === 2 && (openCards[0] as CardModel).name === (openCards[1] as CardModel).name) {
+    if (openCards.length === 2 && (openCards[0] as CardModel).img === (openCards[1] as CardModel).img) {
       removeMatchedCards();
       setOpenCards([]);
     }
