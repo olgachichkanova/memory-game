@@ -9,6 +9,11 @@
   cursor: pointer;
 }
 
+.card img {
+  width: 100%;
+  height: auto;
+}
+
 .closed-card {
   background-color: var(--main-color);
 }
