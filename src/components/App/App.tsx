@@ -30,17 +30,20 @@ export const App = () => {
     }
   }, [counter, isGameFinished, isWinner]);
   return (
-    <section className="board">
-      <Steps title="Steps made" count={counter} />
-      {isGameFinished && <Result isWinner={isWinner} counter={counter} resetGame={() => handleReset(true)} />}
-      <Board
-        onCardClick={handleCardClick}
-        isWinner={isWinner}
-        setIsWinner={(value) => handleResult(value)}
-        isReset={isResetGame}
-        onReset={(value) => handleReset(value)}
-      />
-      <Steps title="Available steps" count={totalSteps - counter} />
-    </section>
+    <div className="main">
+      <h1 className="header">Memory Game</h1>
+      <section className="board">
+        <Steps title="Steps made" count={counter} />
+        {isGameFinished && <Result isWinner={isWinner} counter={counter} resetGame={() => handleReset(true)} />}
+        <Board
+          onCardClick={handleCardClick}
+          isWinner={isWinner}
+          setIsWinner={(value) => handleResult(value)}
+          isReset={isResetGame}
+          onReset={(value) => handleReset(value)}
+        />
+        <Steps title="Available steps" count={totalSteps - counter} />
+      </section>
+    </div>
   );
 };

@@ -112,19 +112,16 @@ export const Board: FC<Props> = ({ onCardClick, setIsWinner, isWinner, isReset, 
   }, [openCards, isReset, isWinner]);
 
   return (
-    <div className="cards-wrapper">
-      <h1 className="header">Memory</h1>
-      <div className="cards">
-        {cards.map((card) => (
-          <div
-            className={`card ${card.img && !card.isOpen ? 'closed-card' : ''}`}
-            key={card.id}
-            onClick={() => handleCardClick(card.id)}
-          >
-            {card.img ? <Card image={card.img} isOpen={card.isOpen} /> : <div className="no-card"></div>}
-          </div>
-        ))}
-      </div>
+    <div className="cards">
+      {cards.map((card) => (
+        <div
+          className={`card ${card.img && !card.isOpen ? 'closed-card' : ''}`}
+          key={card.id}
+          onClick={() => handleCardClick(card.id)}
+        >
+          {card.img ? <Card image={card.img} isOpen={card.isOpen} /> : ''}
+        </div>
+      ))}
     </div>
   );
 };
