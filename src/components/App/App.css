@@ -7,13 +7,17 @@
   height: 100vh;
 }
 .header {
-  font-size: 50px;
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 3rem;
 }
 .board {
-  width: 80%;
   margin: 0 auto;
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.score {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
 }

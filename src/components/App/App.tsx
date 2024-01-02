@@ -33,8 +33,6 @@ export const App = () => {
     <div className="main">
       <h1 className="header">Memory Game</h1>
       <section className="board">
-        <Steps title="Steps made" count={counter} />
-        {isGameFinished && <Result isWinner={isWinner} counter={counter} resetGame={() => handleReset(true)} />}
         <Board
           onCardClick={handleCardClick}
           isWinner={isWinner}
@@ -42,7 +40,11 @@ export const App = () => {
           isReset={isResetGame}
           onReset={(value) => handleReset(value)}
         />
-        <Steps title="Available steps" count={totalSteps - counter} />
+        <div className="score">
+          <Steps title="Steps made" count={counter} />
+          {isGameFinished && <Result isWinner={isWinner} counter={counter} resetGame={() => handleReset(true)} />}
+          <Steps title="Available steps" count={totalSteps - counter} />
+        </div>
       </section>
     </div>
   );
