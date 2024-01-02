@@ -6,10 +6,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  top: 0;
+  left: 0;
 }
 
 .results {
-  padding: 20px;
+  padding: 80px;
   width: 300px;
   background-color: white;
   display: flex;
@@ -19,11 +21,10 @@
 .results h2 {
   margin-bottom: 20px;
 }
-
 .button {
   margin-top: 20px;
   padding: 15px 30px;
-  background-color: var(--accent-color);
+  background-color: var(--bg-color);
   color: white;
   outline: none;
   border: none;

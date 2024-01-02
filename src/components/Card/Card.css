@@ -1,26 +1,28 @@
 .card {
   border-radius: 5px;
-  width: 24%;
-  height: 24%;
+  width: 80px;
+  height: 80px;
+  padding: 10px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid var(--main-color);
   cursor: pointer;
+  background-color: var(--bg-secondary-color);
 }
 
 .card img {
+  margin: 0 auto;
+}
+
+.closed-card {
+  background-color: var(--bg-color);
+}
+
+.closed-card img {
   width: 100%;
   height: auto;
 }
 
-.closed-card {
-  background-color: var(--main-color);
-}
-
 .no-card {
-  width: 100%;
-  height: 100%;
   border: none;
   cursor: default;
+  background: none;
 }
