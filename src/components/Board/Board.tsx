@@ -115,7 +115,7 @@ export const Board: FC<Props> = ({ onCardClick, setIsWinner, isWinner, isReset, 
     <div className="cards">
       {cards.map((card) => (
         <div
-          className={`card ${card.img && !card.isOpen ? 'closed-card' : ''}`}
+          className={`card ${card.img !== null ? (card.isOpen ? '' : 'closed-card') : 'removed-card'}`}
           key={card.id}
           onClick={() => handleCardClick(card.id)}
         >

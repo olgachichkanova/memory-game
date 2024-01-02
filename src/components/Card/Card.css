@@ -21,7 +21,7 @@
   height: auto;
 }
 
-.no-card {
+.removed-card {
   border: none;
   cursor: default;
   background: none;
